@@ -20,9 +20,9 @@ namespace SimpleCurrencyConverter.Classes
             return currencyList.Find( x => code == x.GetCode() );
         }
 
-        public int UpdateCurrencyList()
+        public void UpdateCurrencyList(string url, IXMLURLToCurrencyList urlXMLParser)
         {
-            throw new NotImplementedException();
+            currencyList = urlXMLParser.ParseFromURL( url );
         }
 
     }

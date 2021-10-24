@@ -8,38 +8,38 @@ using SimpleCurrencyConverter.Intefaces;
 
 namespace SimpleCurrencyConverter.Classes
 {
-    class XMLParser : IXMLURLToCurrencyList
+    class XMLParser : IXMLStringToCurrencyList
     {
-        public List<ICurrencyInfo> ParseFromURL( string url )
+        public List<ICurrencyInfo> ParseFromURL( string url, ITextReceiver textDownloader )
         {
             XmlDocument xmlDoc = new XmlDocument();
             List<ICurrencyInfo> currencyList = new List<ICurrencyInfo>();
 
-            xmlDoc.LoadXml( new XMLStringDownloader().GetTextString(url) );
+            xmlDoc.LoadXml( textDownloader.GetTextString(url) );
 
             foreach( XmlNode node in xmlDoc.DocumentElement.ChildNodes )
             {
-                string name = "";
-                string code = "";
-                float ratio = -1f;
-                int factor = -1;
+                string tempName = "";
+                string tempCode = "";
+                float tempRatio = -1f;
+                int tempFactor = -1;
 
                 foreach( XmlNode childNode in node )
                 {
                     if( childNode.Name == "nazwa_waluty" )
-                        name = childNode.InnerText;
+                        tempName = childNode.InnerText;
                     else if( childNode.Name == "przelicznik" )
-                        factor = int.Parse( childNode.InnerText );
+                        int.TryParse( childNode.InnerText ,out tempFactor);
                     else if( childNode.Name == "kurs_sredni" )
-                        ratio = float.Parse( childNode.InnerText , CultureInfo.InvariantCulture );
+                        float.TryParse( childNode.InnerText , out tempRatio);
                     else if( childNode.Name == "kod_waluty" )
-                        code = childNode.InnerText;
+                        tempCode = childNode.InnerText;
                 }
 
 
-                if( name != "" && code != "" && ratio != -1f && factor != -1 )
+                if( tempName != "" && tempCode != "" && tempRatio != -1f && tempFactor != -1 )
                 {
-                    currencyList.Add( new CurrencyInfo( name , code , ratio , factor ) );
+                    currencyList.Add( new CurrencyInfo( tempName , tempCode , tempRatio , tempFactor ) );
                 }
 
             }

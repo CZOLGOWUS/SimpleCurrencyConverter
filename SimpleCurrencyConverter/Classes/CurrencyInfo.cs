@@ -25,8 +25,8 @@ namespace SimpleCurrencyConverter.Classes
         {
             this.name = "";
             this.code = "";
-            this.factor = -1;
             this.ratio = -1f;
+            this.factor = -1;
         }
 
         public string GetName()

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace SimpleCurrencyConverter.Intefaces
 {
-    interface IXMLURLToCurrencyList
+    interface IXMLStringToCurrencyList
     {
-        public List<ICurrencyInfo> ParseFromURL(string url);
+        public List<ICurrencyInfo> ParseFromURL(string url, ITextReceiver textDownloader );
     }
 }

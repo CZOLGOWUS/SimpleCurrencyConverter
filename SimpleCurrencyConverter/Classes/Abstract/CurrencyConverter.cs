@@ -6,9 +6,9 @@ using SimpleCurrencyConverter.Intefaces;
 
 namespace SimpleCurrencyConverter.Classes
 {
-    abstract class Converter
+    abstract class CurrencyConverter
     {
-        static float Convert(ICurrencyInfo c1, ICurrencyInfo c2, float amount)
+        public static float Convert(ICurrencyInfo c1, ICurrencyInfo c2, float amount)
         {
             return (amount * c1.GetFactor() * c1.GetRatio()) / (c2.GetRatio() * c2.GetFactor());
         }

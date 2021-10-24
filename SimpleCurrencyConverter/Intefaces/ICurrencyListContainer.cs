@@ -6,7 +6,8 @@ namespace SimpleCurrencyConverter.Intefaces
 {
     interface ICurrencyListContainer
     {
-        public ICurrencyInfo GetCurrency(string code);
+        public ICurrencyInfo GetCurrencyByCode(string code);
+        public ICurrencyInfo GetCurrencyByName(string name);
         public IReadOnlyCollection<ICurrencyInfo> GetAll();
     }
 }

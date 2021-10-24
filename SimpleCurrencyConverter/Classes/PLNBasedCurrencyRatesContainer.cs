@@ -69,9 +69,13 @@ namespace SimpleCurrencyConverter.Classes
             }
         }
 
-        public void UpdateCurrencyList( string url , IXMLStringToCurrencyList urlXMLParser , ITextReceiver textDownloader )
+        public void UpdateCurrencyList( string url )
         {
-            currencyList = urlXMLParser.ParseFromURL( url , textDownloader );
+            IXMLStringToCurrencyList parser = new XMLParser();
+            ITextDownloader textDowloader = new XMLStringDownloader();
+
+
+            currencyList = parser.ParseFromURL( url , textDowloader );
         }
 
     }

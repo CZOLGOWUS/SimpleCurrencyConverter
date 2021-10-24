@@ -55,13 +55,14 @@ namespace SimpleCurrencyConverter.Classes
                 return intInput;
             else
                 return -1;
+
         }
 
 
 
         public void PrintAll( ICurrencyListContainer container )
         {
-           IReadOnlyCollection<ICurrencyInfo> tempList = container.GetAll();
+            IReadOnlyCollection<ICurrencyInfo> tempList = container.GetAll();
 
             if( tempList == null )
             {
@@ -71,25 +72,25 @@ namespace SimpleCurrencyConverter.Classes
 
             foreach( ICurrencyInfo currency in tempList )
             {
-                Console.WriteLine( "name: " + currency.GetName() +
+                Console.WriteLine( "name: " + currency.GetName().ToLower() +
                     "\ncode: " + currency.GetCode() +
                     "\nratio: " + currency.GetRatio() +
-                    "\nfactor: " + currency.GetFactor()  + "\n");
+                    "\nfactor: " + currency.GetFactor() + "\n" );
             }
 
         }
 
 
 
-        public void PrintByCode(string code, ICurrencyListContainer container )
+        public void PrintByCode( string code , ICurrencyListContainer container )
         {
 
-                ICurrencyInfo currency = container.GetCurrencyByCode( code );
+            ICurrencyInfo currency = container.GetCurrencyByCode( code );
 
-                Console.WriteLine( "name: " + currency.GetName() +
-                "\ncode: " + currency.GetCode() +
-                "\nratio: " + currency.GetRatio() +
-                "\nfactor: " + currency.GetFactor() + "\n" );
+            Console.WriteLine( "name: " + currency.GetName().ToLower() +
+            "\ncode: " + currency.GetCode() +
+            "\nratio: " + currency.GetRatio() +
+            "\nfactor: " + currency.GetFactor() + "\n" );
 
 
         }
@@ -97,18 +98,18 @@ namespace SimpleCurrencyConverter.Classes
 
         public void PrintByName( string name , ICurrencyListContainer container )
         {
-            
-                ICurrencyInfo currency = container.GetCurrencyByName( name );
 
-                Console.WriteLine( "name: " + currency.GetName() +
-                "\ncode: " + currency.GetCode() +
-                "\nratio: " + currency.GetRatio() +
-                "\nfactor: " + currency.GetFactor() + "\n" );
+            ICurrencyInfo currency = container.GetCurrencyByName( name );
+
+            Console.WriteLine( "name: " + currency.GetName().ToLower() +
+            "\ncode: " + currency.GetCode() +
+            "\nratio: " + currency.GetRatio() +
+            "\nfactor: " + currency.GetFactor() + "\n" );
 
         }
 
 
-        public void AskForConvertionData(out string from, out string to, out float amount)
+        public void AskForConvertionData( out string from , out string to , out float amount )
         {
             from = "";
             to = "";
@@ -127,7 +128,7 @@ namespace SimpleCurrencyConverter.Classes
 
         }
 
-        public void PrintConvertionResult(string codeFrom, string codeTo, float amountFrom, float amountTo)
+        public void PrintConvertionResult( string codeFrom , string codeTo , float amountFrom , float amountTo )
         {
             Console.WriteLine( amountFrom + " " + codeFrom + " = " + amountTo + " " + codeTo );
         }
@@ -154,6 +155,14 @@ namespace SimpleCurrencyConverter.Classes
             Console.WriteLine( "press any key to return to option Menu" );
             Console.ReadKey();
             Console.Clear();
+        }
+
+        public void PrintWrongOptionArgumentMessege( int input )
+        {
+            if( input != -1 )
+                Console.WriteLine( "Unnexcpected argument (ArgumentException)" );
+            else
+                Console.WriteLine( "Argument out of Range" );
         }
 
     }

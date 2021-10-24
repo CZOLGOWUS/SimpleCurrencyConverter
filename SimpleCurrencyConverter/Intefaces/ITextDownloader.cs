@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SimpleCurrencyConverter.Intefaces
 {
-    interface ITextReceiver
+    interface ITextDownloader
     {
         public string GetTextString( string url );
     }

@@ -10,7 +10,7 @@ namespace SimpleCurrencyConverter.Classes
 {
     class XMLParser : IXMLStringToCurrencyList
     {
-        public List<ICurrencyInfo> ParseFromURL( string url, ITextReceiver textDownloader )
+        public List<ICurrencyInfo> ParseFromURL( string url, ITextDownloader textDownloader )
         {
             XmlDocument xmlDoc = new XmlDocument();
             List<ICurrencyInfo> currencyList = new List<ICurrencyInfo>();
@@ -27,9 +27,9 @@ namespace SimpleCurrencyConverter.Classes
                 foreach( XmlNode childNode in node )
                 {
                     if( childNode.Name == "nazwa_waluty" )
-                        tempName = childNode.InnerText;
+                        tempName = childNode.InnerText.ToUpper();
                     else if( childNode.Name == "przelicznik" )
-                        int.TryParse( childNode.InnerText ,out tempFactor);
+                        int.TryParse( childNode.InnerText.ToUpper() ,out tempFactor);
                     else if( childNode.Name == "kurs_sredni" )
                         float.TryParse( childNode.InnerText , out tempRatio);
                     else if( childNode.Name == "kod_waluty" )
@@ -44,7 +44,7 @@ namespace SimpleCurrencyConverter.Classes
 
             }
 
-            currencyList.Add( new CurrencyInfo( "polski złoty" , "PLN" , 1f , 1 ) );
+            currencyList.Add( new CurrencyInfo( "POLSKI ZŁOTY" , "PLN" , 1f , 1 ) );
 
             return currencyList;
         }

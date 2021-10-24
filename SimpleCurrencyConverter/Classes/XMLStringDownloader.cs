@@ -7,7 +7,7 @@ using SimpleCurrencyConverter.Intefaces;
 
 namespace SimpleCurrencyConverter.Classes
 {
-    class XMLStringDownloader : ITextReceiver
+    class XMLStringDownloader : ITextDownloader
     {
         public string GetTextString( string url )
         {

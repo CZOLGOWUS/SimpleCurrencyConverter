@@ -18,40 +18,36 @@ namespace SimpleCurrencyConverter
             PLNBasedCurrencyRatesContainer currencyContainer = PLNBasedCurrencyRatesContainer.GetInstance();
 
             IXMLStringToCurrencyList XMLStringParser = new XMLParser();
-            ITextReceiver textDownloader = new XMLStringDownloader();
+            ITextDownloader textDownloader = new XMLStringDownloader();
 
             int input = -1;
             while( !isExitSelected )
             {
                 input = -1;
-                // Handle Menu/choice
+
                 while( input == -1 )
                 {
                     input = appInterface.HandleMenu();
-
-                    if( input == -1 )
-                        Console.WriteLine( "input is out of range" );
                 }
 
-                // Do the functionality depending on input
 
                 switch( input )
                 {
-                    case 1:
+                    case 1: //update
                     {
-                        currencyContainer.UpdateCurrencyList( url , XMLStringParser , textDownloader );
+                        currencyContainer.UpdateCurrencyList( url );
                     }
                     break;
-                    case 2:
+                    case 2: //print all
                     {
                         appInterface.PrintAll( currencyContainer );
                     }
                     break;
-                    case 3:
+                    case 3: //Print Currency by Code
                     {
                         try
                         {
-                            appInterface.PrintByCode( appInterface.AskForCurrencyCode() , currencyContainer );
+                            appInterface.PrintByCode( appInterface.AskForCurrencyCode().ToUpper() , currencyContainer );
                         }
                         catch( ArgumentNullException e )
                         {
@@ -63,11 +59,11 @@ namespace SimpleCurrencyConverter
                         }
                     }
                     break;
-                    case 4:
+                    case 4: //print currency by Name
                     {
                         try
                         {
-                            appInterface.PrintByName( appInterface.AskForCurrencyName() , currencyContainer );
+                            appInterface.PrintByName( appInterface.AskForCurrencyName().ToUpper() , currencyContainer );
                         }
                         catch( ArgumentNullException e )
                         {
@@ -79,7 +75,7 @@ namespace SimpleCurrencyConverter
                         }
                     }
                     break;
-                    case 5:
+                    case 5: // Convert currency
                     {
                         string codeFrom = "", codeTo = "";
                         float amount = -1f;
@@ -88,8 +84,8 @@ namespace SimpleCurrencyConverter
 
                         try
                         {
-                            ICurrencyInfo currencyFrom = currencyContainer.GetCurrencyByCode( codeFrom );
-                            ICurrencyInfo currencyTo = currencyContainer.GetCurrencyByCode( codeTo );
+                            ICurrencyInfo currencyFrom = currencyContainer.GetCurrencyByCode( codeFrom.ToUpper() );
+                            ICurrencyInfo currencyTo = currencyContainer.GetCurrencyByCode( codeTo.ToUpper() );
 
                             float convertedAmount = CurrencyConverter.Convert( currencyFrom , currencyTo , amount );
                             appInterface.PrintConvertionResult( codeFrom , codeTo , amount , convertedAmount );
@@ -105,19 +101,23 @@ namespace SimpleCurrencyConverter
 
                     }
                     break;
-                    case 6:
+                    case 6: //exit application
                     {
                         Environment.Exit( 0 );
                     }
                     break;
+                    default:
+                    {
+                        appInterface.PrintWrongOptionArgumentMessege( input );
+                    }
+                    break;
 
                 }
-                // repeat till exit
+
                 appInterface.EndOfLoopClear();
             }
 
         }
-
 
     }
 }

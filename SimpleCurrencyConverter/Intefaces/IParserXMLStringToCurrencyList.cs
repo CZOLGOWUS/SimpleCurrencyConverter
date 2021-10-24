@@ -6,6 +6,6 @@ namespace SimpleCurrencyConverter.Intefaces
 {
     interface IXMLStringToCurrencyList
     {
-        public List<ICurrencyInfo> ParseFromURL(string url, ITextReceiver textDownloader );
+        public List<ICurrencyInfo> ParseFromURL(string url, ITextDownloader textDownloader);
     }
 }

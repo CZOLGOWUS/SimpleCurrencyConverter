@@ -83,40 +83,78 @@ namespace SimpleCurrencyConverter.Classes
 
         public void PrintByCode(string code, ICurrencyListContainer container )
         {
-            try
-            {
+
                 ICurrencyInfo currency = container.GetCurrencyByCode( code );
 
                 Console.WriteLine( "name: " + currency.GetName() +
                 "\ncode: " + currency.GetCode() +
                 "\nratio: " + currency.GetRatio() +
                 "\nfactor: " + currency.GetFactor() + "\n" );
-            }
-            catch(ArgumentException e)
-            {
-                Console.WriteLine( e.Message );
-            }
+
 
         }
 
 
         public void PrintByName( string name , ICurrencyListContainer container )
         {
-            try
-            {
+            
                 ICurrencyInfo currency = container.GetCurrencyByName( name );
 
                 Console.WriteLine( "name: " + currency.GetName() +
                 "\ncode: " + currency.GetCode() +
                 "\nratio: " + currency.GetRatio() +
                 "\nfactor: " + currency.GetFactor() + "\n" );
-            }
-            catch( ArgumentException e )
-            {
-                Console.WriteLine( e.Message );
-            }
+
         }
 
+
+        public void AskForConvertionData(out string from, out string to, out float amount)
+        {
+            from = "";
+            to = "";
+            amount = -1f;
+
+
+            Console.WriteLine( "enter currency code to convert from\n" );
+            from = Console.ReadLine();
+
+            Console.WriteLine( "enter currency code to convert to\n" );
+            to = Console.ReadLine();
+
+            Console.WriteLine( "enter the amount\n" );
+            float.TryParse( Console.ReadLine() , out amount );
+
+
+        }
+
+        public void PrintConvertionResult(string codeFrom, string codeTo, float amountFrom, float amountTo)
+        {
+            Console.WriteLine( amountFrom + " " + codeFrom + " = " + amountTo + " " + codeTo );
+        }
+
+
+        public string AskForCurrencyCode()
+        {
+            string inputCode;
+            Console.WriteLine( "\nPlease input currency code and press enter:" );
+            inputCode = Console.ReadLine();
+            return inputCode;
+        }
+
+        public string AskForCurrencyName()
+        {
+            string inputName;
+            Console.WriteLine( "\nPlease input currency name and press enter:" );
+            inputName = Console.ReadLine();
+            return inputName;
+        }
+
+        public void EndOfLoopClear()
+        {
+            Console.WriteLine( "press any key to return to option Menu" );
+            Console.ReadKey();
+            Console.Clear();
+        }
 
     }
 }

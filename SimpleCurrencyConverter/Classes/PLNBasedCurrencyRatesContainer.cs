@@ -15,7 +15,7 @@ namespace SimpleCurrencyConverter.Classes
         private PLNBasedCurrencyRatesContainer() { }
         public static PLNBasedCurrencyRatesContainer GetInstance()
         {
-            if( classInstance != null)
+            if( classInstance != null )
             {
                 return classInstance;
             }
@@ -41,29 +41,37 @@ namespace SimpleCurrencyConverter.Classes
 
         public ICurrencyInfo GetCurrencyByCode( string code )
         {
+            try
+            {
+                ICurrencyInfo currencyFound = currencyList.Find( x => code == x.GetCode() );
 
-            ICurrencyInfo currencyFound = currencyList.Find( x => code == x.GetCode() );
+                    return currencyFound;
+            }
+            catch( ArgumentNullException e )
+            {
+                throw e;
+            }
 
-            if( currencyFound == null )
-                throw new ArgumentException( "\nthere is no currency with this code\n" );
-            else
-                return currencyFound;
         }
 
-        public ICurrencyInfo GetCurrencyByName(string name)
+        public ICurrencyInfo GetCurrencyByName( string name )
         {
+            try
+            {
+                ICurrencyInfo currencyFound = currencyList.Find( x => name == x.GetName() );
 
-            ICurrencyInfo currencyFound = currencyList.Find( x => name == x.GetName() );
-
-            if( currencyFound == null )
-                throw new ArgumentException( "\nthere is no currency with this name\n" );
-            else
                 return currencyFound;
+
+            }
+            catch( ArgumentNullException e )
+            {
+                throw e;
+            }
         }
 
-        public void UpdateCurrencyList(string url, IXMLStringToCurrencyList urlXMLParser , ITextReceiver textDownloader)
+        public void UpdateCurrencyList( string url , IXMLStringToCurrencyList urlXMLParser , ITextReceiver textDownloader )
         {
-            currencyList = urlXMLParser.ParseFromURL( url , textDownloader);
+            currencyList = urlXMLParser.ParseFromURL( url , textDownloader );
         }
 
     }

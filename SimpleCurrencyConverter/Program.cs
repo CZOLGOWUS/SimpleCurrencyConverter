@@ -39,72 +39,85 @@ namespace SimpleCurrencyConverter
                 {
                     case 1:
                     {
-                        currencyContainer.UpdateCurrencyList( url, XMLStringParser , textDownloader );
+                        currencyContainer.UpdateCurrencyList( url , XMLStringParser , textDownloader );
                     }
                     break;
                     case 2:
                     {
-                        appInterface.PrintAll(currencyContainer);
+                        appInterface.PrintAll( currencyContainer );
                     }
                     break;
                     case 3:
                     {
-                        string inputCode;
-
-                        Console.WriteLine( "\nPlease input currency code and press enter:" );
-                        inputCode = Console.ReadLine();
-
-                        appInterface.PrintByCode( inputCode , currencyContainer );
+                        try
+                        {
+                            appInterface.PrintByCode( appInterface.AskForCurrencyCode() , currencyContainer );
+                        }
+                        catch( ArgumentNullException e )
+                        {
+                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                        }
+                        catch( NullReferenceException e )
+                        {
+                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                        }
                     }
                     break;
                     case 4:
                     {
-                        string inputName;
-
-                        Console.WriteLine( "\nPlease input currency name and press enter:" );
-                        inputName = Console.ReadLine();
-
-                        appInterface.PrintByName( inputName , currencyContainer );
+                        try
+                        {
+                            appInterface.PrintByName( appInterface.AskForCurrencyName() , currencyContainer );
+                        }
+                        catch( ArgumentNullException e )
+                        {
+                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                        }
+                        catch( NullReferenceException e )
+                        {
+                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                        }
                     }
                     break;
                     case 5:
                     {
-                        string codeFrom = "",codeTo = "";
+                        string codeFrom = "", codeTo = "";
                         float amount = -1f;
-                   
 
-                        Console.WriteLine( "enter currency code to convert from\n" );
-                        codeFrom = Console.ReadLine();
+                        appInterface.AskForConvertionData( out codeFrom , out codeTo , out amount );
 
-                        Console.WriteLine( "enter currency code to convert to\n" );
-                        codeTo = Console.ReadLine();
-
-                        Console.WriteLine( "enter the amount\n" );
-                        float.TryParse(Console.ReadLine(),out amount);
-
-                        ICurrencyInfo currencyFrom = currencyContainer.GetCurrencyByCode( codeFrom );
-                        ICurrencyInfo currencyTo = currencyContainer.GetCurrencyByCode( codeTo );
-
-                        if(codeFrom != "" && codeTo != "" && amount != -1f)
+                        try
                         {
-                            Console.WriteLine( amount + " " + codeFrom + " = " + CurrencyConverter.Convert( currencyFrom , currencyTo , amount ) + " " + codeTo );
+                            ICurrencyInfo currencyFrom = currencyContainer.GetCurrencyByCode( codeFrom );
+                            ICurrencyInfo currencyTo = currencyContainer.GetCurrencyByCode( codeTo );
+
+                            float convertedAmount = CurrencyConverter.Convert( currencyFrom , currencyTo , amount );
+                            appInterface.PrintConvertionResult( codeFrom , codeTo , amount , convertedAmount );
+                        }
+                        catch( ArgumentNullException e )
+                        {
+                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                        }
+                        catch( NullReferenceException e )
+                        {
+                            Console.WriteLine( e.Message + "\nPlease update currency list" );
                         }
 
                     }
                     break;
                     case 6:
                     {
-                        Environment.Exit(0);
+                        Environment.Exit( 0 );
                     }
                     break;
 
                 }
                 // repeat till exit
-                Console.WriteLine( "press any key to return to option Menu" );
-                Console.ReadKey();
-                Console.Clear();
+                appInterface.EndOfLoopClear();
             }
 
         }
+
+
     }
 }

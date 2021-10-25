@@ -6,7 +6,7 @@ using System.Xml;
 
 using SimpleCurrencyConverter.Intefaces;
 
-namespace SimpleCurrencyConverter.Classes
+namespace SimpleCurrencyConverter.Classes 
 {
     class XMLParser : IXMLStringToCurrencyList
     {

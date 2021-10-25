@@ -14,14 +14,15 @@ namespace SimpleCurrencyConverter.Classes
     {
         public string GetTextString( string url )
         {
+            Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
+
             WebClient webClient = new WebClient();
-            Encoding isoEncoding = Encoding.GetEncoding( "ISO-8859-1" ); // ISO-8859-2 is throwing an error that it is not supported...
+            Encoding isoEncoding = Encoding.GetEncoding( "ISO-8859-2" );
             webClient.Encoding = isoEncoding;
 
             var data = Encoding.Convert(isoEncoding , Encoding.UTF8, webClient.DownloadData(url));
             string stringData = Encoding.UTF8.GetString(data);
 
-            Console.WriteLine( stringData );
 
             return stringData;
         }

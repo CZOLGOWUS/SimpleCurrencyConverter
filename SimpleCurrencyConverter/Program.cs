@@ -51,11 +51,11 @@ namespace SimpleCurrencyConverter
                         }
                         catch( ArgumentNullException e )
                         {
-                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                            Console.WriteLine( "Currency cant be found in currency list" + "\nPlease check the code/name and update currency list" );
                         }
                         catch( NullReferenceException e )
                         {
-                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                            Console.WriteLine( "Currency cant be found in currency list" + "\nPlease check the code/name and update currency list" );
                         }
                     }
                     break;
@@ -67,11 +67,11 @@ namespace SimpleCurrencyConverter
                         }
                         catch( ArgumentNullException e )
                         {
-                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                            Console.WriteLine( "Currency cant be found in currency list" + "\nPlease check the code/name and update currency list" );
                         }
                         catch( NullReferenceException e )
                         {
-                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                            Console.WriteLine( "Currency cant be found in currency list" + "\nPlease check the code/name and update currency list" );
                         }
                     }
                     break;
@@ -92,11 +92,11 @@ namespace SimpleCurrencyConverter
                         }
                         catch( ArgumentNullException e )
                         {
-                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                            Console.WriteLine( "Currency cant be found in currency list" + "\nPlease check the code/name and update currency list" );
                         }
                         catch( NullReferenceException e )
                         {
-                            Console.WriteLine( e.Message + "\nPlease update currency list" );
+                            Console.WriteLine( "Currency cant be found in currency list" + "\nPlease check the code/name and update currency list" );
                         }
 
                     }

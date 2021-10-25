@@ -17,14 +17,27 @@ namespace SimpleCurrencyConverter.Classes
             Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
 
             WebClient webClient = new WebClient();
-            Encoding isoEncoding = Encoding.GetEncoding( "ISO-8859-2" );
-            webClient.Encoding = isoEncoding;
+            webClient.Encoding = GetEncoding( webClient.DownloadData( url ) );
 
-            var data = Encoding.Convert(isoEncoding , Encoding.UTF8, webClient.DownloadData(url));
-            string stringData = Encoding.UTF8.GetString(data);
+            var data = Encoding.Convert( webClient.Encoding , Encoding.UTF8, webClient.DownloadData( url ) );
 
-
-            return stringData;
+            return Encoding.UTF8.GetString( data );
         }
+
+        public Encoding GetEncoding(byte[] data)
+        {
+            Encoding encoding;
+            using( var stream = new MemoryStream( data ) )
+            {
+                using( var xmlreader = new XmlTextReader( stream ) )
+                {
+                    xmlreader.MoveToContent();
+                    encoding = xmlreader.Encoding;
+                }
+            }
+
+            return encoding;
+        }
+
     }
 }
